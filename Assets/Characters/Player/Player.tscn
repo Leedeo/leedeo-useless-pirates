@@ -20,15 +20,15 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 11 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
-"loop": true,
-"name": "Run",
-"speed": 12.0
-}, {
 "frames": [ ExtResource( 3 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 10 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "Run",
+"speed": 12.0
 }, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
@@ -50,6 +50,21 @@ height = 6.0
 ]]
 script = ExtResource( 7 )
 
+[node name="Particles" type="CPUParticles2D" parent="."]
+position = Vector2( 0, 10 )
+emitting = false
+amount = 3
+lifetime = 0.35
+speed_scale = 1.6
+randomness = 0.2
+local_coords = false
+gravity = Vector2( 0, -98 )
+angular_velocity = 4.0
+linear_accel = 40.0
+scale_amount = 4.0
+scale_amount_random = 0.8
+color = Color( 1, 1, 1, 0.705882 )
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "Fall"
@@ -60,3 +75,7 @@ shape = SubResource( 2 )
 [node name="Jump" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 18 )
 volume_db = -6.0
+
+[node name="Raycast" type="RayCast2D" parent="."]
+rotation = -1.5708
+enabled = true
