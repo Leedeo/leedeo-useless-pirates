@@ -1,0 +1,62 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Assets/Characters/Player/Pirate/03-Jump Sword/Jump Sword 02.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Characters/Player/Pirate/01-Idle Sword/Idle Sword 03.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Characters/Player/Pirate/01-Idle Sword/Idle Sword 01.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Characters/Player/Pirate/01-Idle Sword/Idle Sword 05.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Characters/Player/Pirate/04-Fall Sword/Fall Sword 01.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Characters/Player/Pirate/03-Jump Sword/Jump Sword 03.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Characters/Player/Scripts/Player.gd" type="Script" id=7]
+[ext_resource path="res://Assets/Characters/Player/Pirate/01-Idle Sword/Idle Sword 02.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Characters/Player/Pirate/03-Jump Sword/Jump Sword 01.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Characters/Player/Pirate/01-Idle Sword/Idle Sword 04.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Characters/Player/Pirate/02-Run Sword/Run Sword 01.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Characters/Player/Pirate/02-Run Sword/Run Sword 04.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Characters/Player/Pirate/02-Run Sword/Run Sword 05.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Characters/Player/Pirate/02-Run Sword/Run Sword 06.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Characters/Player/Pirate/02-Run Sword/Run Sword 03.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Characters/Player/Pirate/02-Run Sword/Run Sword 02.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Characters/Player/Sounds/Jump.ogg" type="AudioStream" id=18]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 11 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "Run",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 10 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "Fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 1 ), ExtResource( 6 ) ],
+"loop": false,
+"name": "Jump",
+"speed": 6.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 8.0
+height = 6.0
+
+[node name="Player" type="KinematicBody2D" groups=[
+"Player",
+]]
+script = ExtResource( 7 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "Fall"
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="Jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+volume_db = -6.0
