@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://Assets/Characters/Player/Pirate/03-Jump Sword/Jump Sword 02.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Characters/Player/Pirate/01-Idle Sword/Idle Sword 03.png" type="Texture" id=2]
@@ -16,34 +16,204 @@
 [ext_resource path="res://Assets/Characters/Player/Pirate/02-Run Sword/Run Sword 06.png" type="Texture" id=14]
 [ext_resource path="res://Assets/Characters/Player/Pirate/02-Run Sword/Run Sword 03.png" type="Texture" id=15]
 [ext_resource path="res://Assets/Characters/Player/Pirate/02-Run Sword/Run Sword 02.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Characters/Player/Pirate/07-Attack 1/Attack 1 01.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Characters/Player/Sounds/Jump.ogg" type="AudioStream" id=18]
+[ext_resource path="res://Assets/Characters/Player/Pirate/07-Attack 1/Attack 1 03.png" type="Texture" id=19]
+[ext_resource path="res://Assets/Characters/Player/Pirate/07-Attack 1/Attack 1 02.png" type="Texture" id=20]
+[ext_resource path="res://Assets/Characters/Player/Pirate/08-Attack 2/Attack 2 03.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Characters/Player/Pirate/08-Attack 2/Attack 2 02.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Characters/Player/Pirate/08-Attack 2/Attack 2 01.png" type="Texture" id=23]
+[ext_resource path="res://Assets/Characters/Player/Pirate/09-Attack 3/Attack 3 03.png" type="Texture" id=24]
+[ext_resource path="res://Assets/Characters/Player/Pirate/09-Attack 3/Attack 3 02.png" type="Texture" id=25]
+[ext_resource path="res://Assets/Characters/Player/Pirate/09-Attack 3/Attack 3 01.png" type="Texture" id=26]
+[ext_resource path="res://Assets/Characters/Player/Sounds/Sword.ogg" type="AudioStream" id=27]
 
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 3 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 10 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 11 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
-"loop": true,
-"name": "Run",
-"speed": 12.0
-}, {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "Fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 9 ), ExtResource( 1 ), ExtResource( 6 ) ],
-"loop": false,
-"name": "Jump",
-"speed": 6.0
-} ]
+[sub_resource type="Animation" id=1]
+resource_name = "Attack-1"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 17 ), ExtResource( 20 ), ExtResource( 19 ) ]
+}
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="Animation" id=2]
+resource_name = "Attack-2"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 23 ), ExtResource( 22 ), ExtResource( 21 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Attack-3"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 26 ), ExtResource( 25 ), ExtResource( 24 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Fall"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 5 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Idle"
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 10 ), ExtResource( 4 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Jump"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 9 ), ExtResource( 1 ), ExtResource( 6 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Run"
+length = 0.45
+loop = true
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.075, 0.15, 0.225, 0.3, 0.375 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 11 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=30]
+animation = "Attack-1"
+
+[sub_resource type="AnimationNodeAnimation" id=31]
+animation = "Attack-2"
+
+[sub_resource type="AnimationNodeAnimation" id=32]
+animation = "Attack-3"
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "Fall"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "Jump"
+
+[sub_resource type="AnimationNodeAnimation" id=14]
+animation = "Run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=20]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=36]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=37]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=38]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=39]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=40]
+
+[sub_resource type="AnimationNodeStateMachine" id=27]
+states/Attack-1/node = SubResource( 30 )
+states/Attack-1/position = Vector2( 236.354, 239 )
+states/Attack-2/node = SubResource( 31 )
+states/Attack-2/position = Vector2( 470, 239 )
+states/Attack-3/node = SubResource( 32 )
+states/Attack-3/position = Vector2( 716, 239 )
+states/Fall/node = SubResource( 11 )
+states/Fall/position = Vector2( 716, -43 )
+states/Idle/node = SubResource( 12 )
+states/Idle/position = Vector2( 470, 101 )
+states/Jump/node = SubResource( 13 )
+states/Jump/position = Vector2( 470, -43 )
+states/Run/node = SubResource( 14 )
+states/Run/position = Vector2( 716, 101 )
+transitions = [ "Idle", "Run", SubResource( 15 ), "Run", "Idle", SubResource( 16 ), "Idle", "Jump", SubResource( 17 ), "Jump", "Fall", SubResource( 18 ), "Fall", "Idle", SubResource( 19 ), "Idle", "Fall", SubResource( 20 ), "Idle", "Attack-1", SubResource( 33 ), "Attack-2", "Idle", SubResource( 36 ), "Attack-3", "Idle", SubResource( 37 ), "Attack-1", "Idle", SubResource( 38 ), "Attack-1", "Attack-2", SubResource( 39 ), "Attack-2", "Attack-3", SubResource( 40 ) ]
+graph_offset = Vector2( -106.646, -224 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=28]
+
+[sub_resource type="CapsuleShape2D" id=29]
 radius = 8.0
-height = 6.0
+height = 4.0
 
 [node name="Player" type="KinematicBody2D" groups=[
 "Player",
@@ -65,17 +235,41 @@ scale_amount = 4.0
 scale_amount_random = 0.8
 color = Color( 1, 1, 1, 0.705882 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 1 )
-animation = "Fall"
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attack-1 = SubResource( 1 )
+anims/Attack-2 = SubResource( 2 )
+anims/Attack-3 = SubResource( 3 )
+anims/Fall = SubResource( 4 )
+anims/Idle = SubResource( 5 )
+anims/Jump = SubResource( 6 )
+anims/Run = SubResource( 7 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 27 )
+anim_player = NodePath("../AnimationPlayer")
+parameters/playback = SubResource( 28 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+position = Vector2( 1, 0 )
+shape = SubResource( 29 )
 
-[node name="Jump" type="AudioStreamPlayer" parent="."]
+[node name="Sounds" type="Node" parent="."]
+
+[node name="Jump" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 18 )
 volume_db = -6.0
 
-[node name="Raycast" type="RayCast2D" parent="."]
-rotation = -1.5708
-enabled = true
+[node name="Sword" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 27 )
+volume_db = -16.0
+
+[node name="RayEnemy" type="RayCast2D" parent="."]
+position = Vector2( 0, 5 )
+cast_to = Vector2( 22, 0 )
+
+[node name="RayWall" type="RayCast2D" parent="."]
+position = Vector2( 0, -2 )
+cast_to = Vector2( 10, 0 )
