@@ -143,13 +143,13 @@ tracks/0/keys = {
 "values": [ ExtResource( 11 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=30]
+[sub_resource type="AnimationNodeAnimation" id=8]
 animation = "Attack-1"
 
-[sub_resource type="AnimationNodeAnimation" id=31]
+[sub_resource type="AnimationNodeAnimation" id=9]
 animation = "Attack-2"
 
-[sub_resource type="AnimationNodeAnimation" id=32]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "Attack-3"
 
 [sub_resource type="AnimationNodeAnimation" id=11]
@@ -176,27 +176,27 @@ animation = "Run"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=20]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=33]
+[sub_resource type="AnimationNodeStateMachineTransition" id=21]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=36]
+[sub_resource type="AnimationNodeStateMachineTransition" id=22]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=37]
+[sub_resource type="AnimationNodeStateMachineTransition" id=23]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=38]
+[sub_resource type="AnimationNodeStateMachineTransition" id=24]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=39]
+[sub_resource type="AnimationNodeStateMachineTransition" id=25]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=40]
+[sub_resource type="AnimationNodeStateMachineTransition" id=26]
 
 [sub_resource type="AnimationNodeStateMachine" id=27]
-states/Attack-1/node = SubResource( 30 )
+states/Attack-1/node = SubResource( 8 )
 states/Attack-1/position = Vector2( 236.354, 239 )
-states/Attack-2/node = SubResource( 31 )
+states/Attack-2/node = SubResource( 9 )
 states/Attack-2/position = Vector2( 470, 239 )
-states/Attack-3/node = SubResource( 32 )
+states/Attack-3/node = SubResource( 10 )
 states/Attack-3/position = Vector2( 716, 239 )
 states/Fall/node = SubResource( 11 )
 states/Fall/position = Vector2( 716, -43 )
@@ -206,7 +206,7 @@ states/Jump/node = SubResource( 13 )
 states/Jump/position = Vector2( 470, -43 )
 states/Run/node = SubResource( 14 )
 states/Run/position = Vector2( 716, 101 )
-transitions = [ "Idle", "Run", SubResource( 15 ), "Run", "Idle", SubResource( 16 ), "Idle", "Jump", SubResource( 17 ), "Jump", "Fall", SubResource( 18 ), "Fall", "Idle", SubResource( 19 ), "Idle", "Fall", SubResource( 20 ), "Idle", "Attack-1", SubResource( 33 ), "Attack-2", "Idle", SubResource( 36 ), "Attack-3", "Idle", SubResource( 37 ), "Attack-1", "Idle", SubResource( 38 ), "Attack-1", "Attack-2", SubResource( 39 ), "Attack-2", "Attack-3", SubResource( 40 ) ]
+transitions = [ "Idle", "Run", SubResource( 15 ), "Run", "Idle", SubResource( 16 ), "Idle", "Jump", SubResource( 17 ), "Jump", "Fall", SubResource( 18 ), "Fall", "Idle", SubResource( 19 ), "Idle", "Fall", SubResource( 20 ), "Idle", "Attack-1", SubResource( 21 ), "Attack-2", "Idle", SubResource( 22 ), "Attack-3", "Idle", SubResource( 23 ), "Attack-1", "Idle", SubResource( 24 ), "Attack-1", "Attack-2", SubResource( 25 ), "Attack-2", "Attack-3", SubResource( 26 ) ]
 graph_offset = Vector2( -106.646, -224 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=28]
@@ -253,7 +253,7 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource( 28 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2( 1, 0 )
+position = Vector2( 0, 1 )
 shape = SubResource( 29 )
 
 [node name="Sounds" type="Node" parent="."]
@@ -266,10 +266,14 @@ volume_db = -6.0
 stream = ExtResource( 27 )
 volume_db = -16.0
 
-[node name="RayEnemy" type="RayCast2D" parent="."]
-position = Vector2( 0, 5 )
+[node name="Raycast" type="Position2D" parent="."]
+
+[node name="Hit" type="RayCast2D" parent="Raycast"]
+position = Vector2( 0, 4 )
+enabled = true
 cast_to = Vector2( 22, 0 )
 
-[node name="RayWall" type="RayCast2D" parent="."]
+[node name="Wall" type="RayCast2D" parent="Raycast"]
 position = Vector2( 0, -2 )
-cast_to = Vector2( 10, 0 )
+enabled = true
+cast_to = Vector2( 12, 0 )

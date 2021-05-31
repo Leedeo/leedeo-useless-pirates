@@ -1,12 +1,12 @@
 extends KinematicBody2D
 
+# El principio de la refactorización consiste en cambiar el código sin cambiar el comportamiento para facilitar la lectura y por lo tanto la tarea de actualizar el software.
+
 const SPEED = 128
 const FLOOR = Vector2(0, -1)
 const GRAVITY = 16
 const JUMP_HEIGHT = 384
 const BOUNCING_JUMP = 112 # Esta constante es para definir la fuerza de rebote en la pared.
-const CAST_WALL = 10 # Esta constante es para definir la distancia de colisión con la pared.
-const CAST_ENEMY = 22 # Esta constante es para definir la distancia de colisión con los enemigos.
 onready var motion : Vector2 = Vector2.ZERO
 var can_move : bool # Esta variable es para comprobar si el personaje puede moverse.
 
@@ -22,7 +22,6 @@ func _ready():
 
 func _process(_delta):
 	motion_ctrl()
-	direction_ctrl()
 	jump_ctrl()
 	attack_ctrl()
 
@@ -31,7 +30,6 @@ func get_axis() -> Vector2:
 	var axis = Vector2.ZERO
 	axis.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
 	return axis
-
 
 # Al separar los comportamientos en distintas funciones, la función de movimiento ha quedado mucho más limpia y comprensible a simple vista.
 func motion_ctrl():
@@ -42,33 +40,28 @@ func motion_ctrl():
 		
 		if get_axis().x == 0:
 			playback.travel("Idle")
-		else:
+		elif get_axis().x == 1:
 			playback.travel("Run")
-	
+			$Sprite.flip_h = false
+		elif get_axis().x == -1:
+			playback.travel("Run")
+			$Sprite.flip_h = true
+		
 		match playback.get_current_node():
 			"Idle":
 				motion.x =  0
 				$Particles.emitting = false
 			"Run":
 				$Particles.emitting = true
-				
-		if get_axis().x == 1:
-			$Sprite.flip_h = false
-		elif get_axis().x == -1:
-			$Sprite.flip_h = true
-			
-	motion = move_and_slide(motion, FLOOR)
-
-
-# Como es probable que se vayan agregando componentes creamos esta función para mantener cierto orden en el código e indicar la dirección de ciertos elementos.
-func direction_ctrl(): 
+	
+	# Como he añadido los Raycast dentro de un position únicamente tenemos que cambiar la escala del nodo padre para invertir sus nodos hijos. Al ser un código más sencillo se puede prescindir de la función direction_ctrl() creada anteriormente.
 	match $Sprite.flip_h:
 		true:
-			$RayWall.cast_to.x = -CAST_WALL
-			$RayEnemy.cast_to.x = -CAST_ENEMY
+			$Raycast.scale.x = -1
 		false:
-			$RayWall.cast_to.x = CAST_WALL
-			$RayEnemy.cast_to.x = CAST_ENEMY
+			$Raycast.scale.x = 1
+			
+	motion = move_and_slide(motion, FLOOR)
 
 
 # Separamos la función de salto igualmente para mantener orden en el código y facilitar así la lectura.
@@ -76,7 +69,6 @@ func jump_ctrl():
 	match is_on_floor():
 		true: # Aquí comprobamos si el personaje se encuentra tocando el suelo.
 			can_move = true # En caso afirmativo, can_move es igual a true.
-			$RayWall.enabled = false # Y el Raycast permanece inactivo.
 		
 			if Input.is_action_just_pressed("jump"):
 				$Sounds/Jump.play()
@@ -84,33 +76,34 @@ func jump_ctrl():
 			
 		false: # Aquí comprobamos si el personaje no se encuentra tocando el suelo.
 			$Particles.emitting = false # En caso negativo, se desactiva la emisión de partículas.
-			$RayWall.enabled = true # Y se activa el Raycast.
 		
 			if motion.y < 0:
 				playback.travel("Jump")
 			else:
 				playback.travel("Fall")
 			
-			if $RayWall.is_colliding(): # He creado esta condición para preguntar si el nodo está colisionando.
+			if $Raycast/Wall.is_colliding(): # Tenemos que comprobar primero si ha colisionado, de lo contrario arrojaría un error.
 				can_move = false # Y en caso afirmativo, can_move es igual a false.
 				
-				var col = $RayWall.get_collider() # Creo esta variable para guardar las colisiones.
+				var body = $Raycast/Wall.get_collider() # Creo esta variable para guardar las colisiones.
 			
-				# En este condicional se está comprobando si el personaje se encuentra tocando la pared y pulsamos la tecla de salto.
-				if col.is_in_group("Wall") and Input.is_action_just_pressed("jump"):
-					$Sounds/Jump.play()
-					motion.y -= JUMP_HEIGHT
-					
-					if $Sprite.flip_h:
-						motion.x += BOUNCING_JUMP
-						$Sprite.flip_h = false
-					else:
-						motion.x -= BOUNCING_JUMP
-						$Sprite.flip_h = true
+				if body.is_in_group("Wall"): # Comprobamos si el personaje se encuentra tocando la pared.
+					if Input.is_action_just_pressed("jump"):
+						$Sounds/Jump.play()
+						motion.y -= JUMP_HEIGHT
+						
+						if $Sprite.flip_h:
+							motion.x += BOUNCING_JUMP
+							$Sprite.flip_h = false
+						else:
+							motion.x -= BOUNCING_JUMP
+							$Sprite.flip_h = true
 
 
 # Creamos una función para controlar el ataque del personaje.
 func attack_ctrl():
+	var body = $Raycast/Hit.get_collider() # Utilizamos el mismo procedimiento que para detectar la colisión con la pared.
+	
 	if is_on_floor():
 		if get_axis().x == 0 and Input.is_action_just_pressed("attack"):
 			match playback.get_current_node():
@@ -123,14 +116,7 @@ func attack_ctrl():
 				"Attack-2":
 					playback.travel("Attack-3")
 					$Sounds/Sword.play()
-	
-	if playback.get_current_node() == "Attack-1" or playback.get_current_node() == "Attack-2" or playback.get_current_node() == "Attack-3":
-		$RayEnemy.enabled = true
-	else:
-		$RayEnemy.enabled = false
-	
-	# Código temporal para comprobar el funcionamiento.
-	var col = $RayEnemy.get_collider() # Mismo procedimiento que el Raycast de la pared.
-	
-	if $RayEnemy.is_colliding() and col.is_in_group("Enemy"):
-		col.queue_free()
+					
+			if $Raycast/Hit.is_colliding(): 
+				if body.is_in_group("Enemy"):
+					body.damage_ctrl()
