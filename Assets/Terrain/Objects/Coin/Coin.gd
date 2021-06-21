@@ -1,4 +1,4 @@
 extends Area2D
 
-func _ready():
+func _ready() -> void:
 	$AnimatedSprite.play("Idle")

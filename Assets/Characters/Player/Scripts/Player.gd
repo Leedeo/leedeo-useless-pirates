@@ -14,36 +14,31 @@ var can_move : bool # Esta variable es para comprobar si el personaje puede move
 var playback : AnimationNodeStateMachinePlayback
 
 
-func _ready():
+func _ready() -> void:
 	playback = $AnimationTree.get("parameters/playback") # Obtenemos la referencia al parámetro playback del nodo AnimationTree.
 	playback.start("Idle") # Iniciamos en el estado Idle.
 	$AnimationTree.active = true # Y activamos el AnimationTree
 
 
-func _process(_delta):
+func _process(_delta) -> void:
 	motion_ctrl()
 	jump_ctrl()
 	attack_ctrl()
 
 
-func get_axis() -> Vector2:
-	var axis = Vector2.ZERO
-	axis.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
-	return axis
-
 # Al separar los comportamientos en distintas funciones, la función de movimiento ha quedado mucho más limpia y comprensible a simple vista.
-func motion_ctrl():
+func motion_ctrl() -> void:
 	motion.y += GRAVITY
 	
 	if can_move: # Aquí se indica que solo podrá moverse si can_move es igual a true.
-		motion.x =  get_axis().x * SPEED
+		motion.x =  GLOBAL.get_axis().x * SPEED
 		
-		if get_axis().x == 0:
+		if GLOBAL.get_axis().x == 0:
 			playback.travel("Idle")
-		elif get_axis().x == 1:
+		elif GLOBAL.get_axis().x == 1:
 			playback.travel("Run")
 			$Sprite.flip_h = false
-		elif get_axis().x == -1:
+		elif GLOBAL.get_axis().x == -1:
 			playback.travel("Run")
 			$Sprite.flip_h = true
 		
@@ -65,7 +60,7 @@ func motion_ctrl():
 
 
 # Separamos la función de salto igualmente para mantener orden en el código y facilitar así la lectura.
-func jump_ctrl():
+func jump_ctrl() -> void:
 	match is_on_floor():
 		true: # Aquí comprobamos si el personaje se encuentra tocando el suelo.
 			can_move = true # En caso afirmativo, can_move es igual a true.
@@ -83,11 +78,12 @@ func jump_ctrl():
 				playback.travel("Fall")
 			
 			if $Raycast/Wall.is_colliding(): # Tenemos que comprobar primero si ha colisionado, de lo contrario arrojaría un error.
-				can_move = false # Y en caso afirmativo, can_move es igual a false.
 				
 				var body = $Raycast/Wall.get_collider() # Creo esta variable para guardar las colisiones.
 			
 				if body.is_in_group("Wall"): # Comprobamos si el personaje se encuentra tocando la pared.
+					can_move = false # Y en caso afirmativo, can_move es igual a false. Movemos esta comprobación aquí para que solo bloquee el movimiento si colisiona con una pared.
+					
 					if Input.is_action_just_pressed("jump"):
 						$Sounds/Jump.play()
 						motion.y -= JUMP_HEIGHT
@@ -101,11 +97,11 @@ func jump_ctrl():
 
 
 # Creamos una función para controlar el ataque del personaje.
-func attack_ctrl():
+func attack_ctrl() -> void:
 	var body = $Raycast/Hit.get_collider() # Utilizamos el mismo procedimiento que para detectar la colisión con la pared.
 	
 	if is_on_floor():
-		if get_axis().x == 0 and Input.is_action_just_pressed("attack"):
+		if GLOBAL.get_axis().x == 0 and Input.is_action_just_pressed("attack"):
 			match playback.get_current_node():
 				"Idle":
 					playback.travel("Attack-1")
@@ -119,4 +115,4 @@ func attack_ctrl():
 					
 			if $Raycast/Hit.is_colliding(): 
 				if body.is_in_group("Enemy"):
-					body.damage_ctrl()
+					body.damage_ctrl(3)

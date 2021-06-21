@@ -274,6 +274,6 @@ enabled = true
 cast_to = Vector2( 22, 0 )
 
 [node name="Wall" type="RayCast2D" parent="Raycast"]
-position = Vector2( 0, -2 )
+position = Vector2( 0, -8 )
 enabled = true
 cast_to = Vector2( 12, 0 )
