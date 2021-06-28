@@ -1,0 +1,93 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Coin.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/Chest/1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sounds/Chain.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/Chest/8.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/Chest/3.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/Chest/2.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/Chest/6.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/Chest/4.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/Chest/5.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/Chest/7.png" type="Texture" id=10]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="Animation" id=2]
+resource_name = "Idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 2 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Join"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 2 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 10 ), ExtResource( 4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.8, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="Chest" type="Area2D"]
+script = ExtResource( 1 )
+type = "Chest"
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 6 )
+shape = SubResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -20.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Idle = SubResource( 2 )
+anims/Join = SubResource( 3 )
+
+[connection signal="body_entered" from="." to="." method="_on_Coin_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]

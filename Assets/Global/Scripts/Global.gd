@@ -1,5 +1,7 @@
 extends Node
 
+var coins : int = 0
+
 # Como vamos a poner esta función dentro de un script global, entonces hay que hacer los cambios pertinentes en el script del player.
 func get_axis() -> Vector2: 
 	var axis = Vector2.ZERO

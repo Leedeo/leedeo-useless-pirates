@@ -10,13 +10,14 @@ func _ready():
 
 
 func _process(_delta) -> void:
-	motion_ctrl()
-	tween_ctrl()
-
-
-func _input(event):
-	if event.is_action_pressed("shoot"):
-		shoot_ctrl()
+	# Añado esta función para que todo esto suceda unicamente si player se encuentra en el árbol de escenas y evitar errores.
+	if is_instance_valid(player):
+		motion_ctrl()
+		tween_ctrl()
+		
+		# Lo hago así en lugar de hacerlo en la función Input por economizar código.
+		if Input.is_action_just_pressed("shoot"):
+			shoot_ctrl()
 
 
 func motion_ctrl() -> void:

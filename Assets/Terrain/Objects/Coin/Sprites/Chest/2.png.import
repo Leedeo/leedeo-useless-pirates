@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/01.png-538178fe40b0e8e7df00090ffcf3536b.stex"
+path="res://.import/2.png-252c8a4f133059bcf7ffeaf5257baf21.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Terrain/Objects/Coin/Sprites/01.png"
-dest_files=[ "res://.import/01.png-538178fe40b0e8e7df00090ffcf3536b.stex" ]
+source_file="res://Assets/Terrain/Objects/Coin/Sprites/Chest/2.png"
+dest_files=[ "res://.import/2.png-252c8a4f133059bcf7ffeaf5257baf21.stex" ]
 
 [params]
 

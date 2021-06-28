@@ -1,29 +1,82 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Assets/Terrain/Objects/Coin/Coin.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/02.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/04.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/01.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/03.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/Coin/02.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/Coin/04.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/Coin/01.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/Coin/03.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sounds/Coin.ogg" type="AudioStream" id=6]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/Coin/join-03.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/Coin/join-01.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Terrain/Objects/Coin/Sprites/Coin/join-02.png" type="Texture" id=9]
 
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 5.0
-} ]
-
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5.5, 5.5 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "Idle"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Join"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -10 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 7 ) ]
+}
 
 [node name="Coin" type="Area2D"]
 script = ExtResource( 1 )
+type = "Coin"
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 1 )
-animation = "Idle"
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 4 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -22.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.5, 0.5 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Idle = SubResource( 2 )
+anims/Join = SubResource( 3 )
+
+[connection signal="body_entered" from="." to="." method="_on_Coin_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_started"]
