@@ -5,7 +5,7 @@ onready var can_move : bool = true
 
 func _ready() -> void:
 	$AnimationPlayer.play("Shoot")
-	$AudioStreamPlayer.play()
+	$Sounds/Shoot.play()
 
 
 func _process(delta) -> void:
@@ -22,9 +22,11 @@ func _on_Shoot_body_entered(body): # El área envía la señal body_entered.
 	if body.is_in_group("Enemy"): # Si el cuerpo pertenece al grupo Enemy.
 		body.damage_ctrl(1) # Se llama a la función damage_ctrl de los enemigos.
 		$AnimationPlayer.play("Explosion")
+		$Sounds/Explosion.play() # Añadimos el sonido de explosión.
 		
 	elif body.is_in_group("Wall"): # Si el cuerpo pertenece al grupo Wall.
 		$AnimationPlayer.play("Explosion")
+		$Sounds/Explosion.play() # Añadimos el sonido de explosión.
 
 
 func _on_AnimationPlayer_animation_started(anim_name):

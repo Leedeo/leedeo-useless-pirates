@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/Characters/Player/Shoot/shot-1.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Characters/Player/Shoot/shot-2.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Assets/Characters/Player/Shoot/explosion-3.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Characters/Player/Shoot/explosion-4.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Characters/Player/Shoot/explosion-1.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Characters/Player/Sounds/Explosion.ogg" type="AudioStream" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Explosion"
@@ -62,8 +63,14 @@ anims/Shoot = SubResource( 2 )
 position = Vector2( 3, -0.5 )
 shape = SubResource( 3 )
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Sounds" type="Position2D" parent="."]
+
+[node name="Shoot" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 4 )
+volume_db = -14.0
+
+[node name="Explosion" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource( 10 )
 volume_db = -14.0
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]

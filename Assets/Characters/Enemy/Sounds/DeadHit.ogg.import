@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/DeadHit.ogg-c834e9867ca9553923cab94d5d4535aa.oggstr"
+
+[deps]
+
+source_file="res://Assets/Characters/Enemy/Sounds/DeadHit.ogg"
+dest_files=[ "res://.import/DeadHit.ogg-c834e9867ca9553923cab94d5d4535aa.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

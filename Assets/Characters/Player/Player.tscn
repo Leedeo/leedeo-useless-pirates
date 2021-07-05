@@ -271,7 +271,7 @@ volume_db = -16.0
 [node name="Hit" type="RayCast2D" parent="Raycast"]
 position = Vector2( 0, 4 )
 enabled = true
-cast_to = Vector2( 22, 0 )
+cast_to = Vector2( 32, 0 )
 
 [node name="Wall" type="RayCast2D" parent="Raycast"]
 position = Vector2( 0, -8 )
