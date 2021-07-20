@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Terrain/Jungle/Sprites/Tileset.tres" type="TileSet" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 3.5 )
+
+[node name="Platform" type="KinematicBody2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 16 )
+format = 1
+tile_data = PoolIntArray( 65535, 4, 0, 0, 4, 2 )
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 4.5 )
+shape = SubResource( 1 )

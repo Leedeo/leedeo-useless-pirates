@@ -52,7 +52,7 @@ func _on_AnimationPlayer_animation_started(anim_name): # Señal enviada cuando i
 	match anim_name:
 		"Hit":
 			can_move = false # Bloqueamos el movimiento
-			camera.screen_shake(0.5, 0.6, 100)
+			camera.screen_shake(0.7, 0.8, 100)
 		"Dead Hit":
 			$SoundDead.play()
 

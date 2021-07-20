@@ -256,6 +256,10 @@ parameters/playback = SubResource( 28 )
 position = Vector2( 0, 1 )
 shape = SubResource( 29 )
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [node name="Sounds" type="Node" parent="."]
 
 [node name="Jump" type="AudioStreamPlayer" parent="Sounds"]
@@ -277,3 +281,5 @@ cast_to = Vector2( 32, 0 )
 position = Vector2( 0, -8 )
 enabled = true
 cast_to = Vector2( 12, 0 )
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

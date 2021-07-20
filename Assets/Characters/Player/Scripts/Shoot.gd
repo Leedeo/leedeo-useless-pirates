@@ -24,7 +24,7 @@ func _on_Shoot_body_entered(body): # El área envía la señal body_entered.
 		$AnimationPlayer.play("Explosion")
 		$Sounds/Explosion.play() # Añadimos el sonido de explosión.
 		
-	elif body.is_in_group("Wall"): # Si el cuerpo pertenece al grupo Wall.
+	elif body.is_in_group("Terrain"): # Si el cuerpo pertenece al grupo Wall.
 		$AnimationPlayer.play("Explosion")
 		$Sounds/Explosion.play() # Añadimos el sonido de explosión.
 

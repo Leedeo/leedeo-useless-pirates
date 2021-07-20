@@ -48,7 +48,7 @@ func motion_ctrl() -> void:
 				$Particles.emitting = false
 			"Run":
 				$Particles.emitting = true
-	
+				
 	# Como he añadido los Raycast dentro de un position únicamente tenemos que cambiar la escala del nodo padre para invertir sus nodos hijos. Al ser un código más sencillo se puede prescindir de la función direction_ctrl() creada anteriormente.
 	match $Sprite.flip_h:
 		true:
@@ -57,6 +57,23 @@ func motion_ctrl() -> void:
 			$Raycast.scale.x = 1
 			
 	motion = move_and_slide(motion, FLOOR)
+	
+	var slide_count = get_slide_count() # Retorna el número de veces que el cuerpo está colisionando.
+	
+	if slide_count: # Si fuera superior a 0 es igual a true.
+		# Así que guardamos en una variable el objeto colisionado y en otra su collider.
+		var collision = get_slide_collision(slide_count - 1)
+		var collider = collision.collider
+		
+		# Si pertenece al grupo Platform y presionamos abajo, desactivamos el collider del player y activamos el timer.
+		if collider.is_in_group("Platform") and Input.is_action_just_pressed("ui_down"):
+			$Collision.disabled = true
+			$Timer.start()
+
+
+func _on_Timer_timeout():
+	# Cuando el tiempo termina, se activa nuevamente el collider, es una forma de hacer esto.
+	$Collision.disabled = false
 
 
 # Separamos la función de salto igualmente para mantener orden en el código y facilitar así la lectura.
@@ -81,7 +98,7 @@ func jump_ctrl() -> void:
 				
 				var body = $Raycast/Wall.get_collider() # Creo esta variable para guardar las colisiones.
 			
-				if body.is_in_group("Wall"): # Comprobamos si el personaje se encuentra tocando la pared.
+				if body.is_in_group("Terrain"): # Comprobamos si el personaje se encuentra tocando la pared.
 					can_move = false # Y en caso afirmativo, can_move es igual a false. Movemos esta comprobación aquí para que solo bloquee el movimiento si colisiona con una pared.
 					
 					if Input.is_action_just_pressed("jump"):
