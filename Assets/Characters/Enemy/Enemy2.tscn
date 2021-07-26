@@ -1,7 +1,11 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Assets/Characters/Enemy/Sounds/DeadHit.ogg" type="AudioStream" id=1]
-[ext_resource path="res://Assets/Characters/Enemy/Scipts/Enemy.gd" type="Script" id=9]
+[ext_resource path="res://Assets/Characters/Enemy/Scipts/Enemy2.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Characters/Enemy/Sprites/Pink Star/07-Attack/Attack 02.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Characters/Enemy/Sprites/Pink Star/07-Attack/Attack 01.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Characters/Enemy/Sprites/Pink Star/07-Attack/Attack 03.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Characters/Enemy/Sprites/Pink Star/07-Attack/Attack 04.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Characters/Enemy/Sprites/Pink Star/02-Run/Run 04.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Characters/Enemy/Sprites/Pink Star/02-Run/Run 02.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Characters/Enemy/Sprites/Pink Star/02-Run/Run 03.png" type="Texture" id=12]
@@ -18,7 +22,22 @@
 [ext_resource path="res://Assets/Characters/Enemy/Sprites/Pink Star/08-Hit/Hit 04.png" type="Texture" id=23]
 
 [sub_resource type="Animation" id=1]
-resource_name = "Dead Hit"
+resource_name = "Attack"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 6 ) ]
+}
+
+[sub_resource type="Animation" id=2]
 length = 0.8
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -57,8 +76,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 4 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "Hit"
+[sub_resource type="Animation" id=3]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -97,8 +115,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 0.27451 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Run"
+[sub_resource type="Animation" id=4]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -126,29 +143,39 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="CapsuleShape2D" id=4]
+[sub_resource type="CapsuleShape2D" id=5]
 radius = 8.5
 height = 3.0
 
 [node name="Enemy" type="KinematicBody2D" groups=[
 "Enemy",
 ]]
-script = ExtResource( 9 )
+script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 flip_h = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-"anims/Dead Hit" = SubResource( 1 )
-anims/Hit = SubResource( 2 )
-anims/Run = SubResource( 3 )
+anims/Attack = SubResource( 1 )
+"anims/Dead Hit" = SubResource( 2 )
+anims/Hit = SubResource( 3 )
+anims/Run = SubResource( 4 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( -0.5, 3 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="Raycast" type="Position2D" parent="."]
+
+[node name="Patrol" type="RayCast2D" parent="Raycast"]
+position = Vector2( 0, -4 )
+enabled = true
+cast_to = Vector2( 128, 0 )
+
+[node name="Attack" type="RayCast2D" parent="Raycast"]
+enabled = true
+cast_to = Vector2( 12, 0 )
 
 [node name="Ground" type="RayCast2D" parent="Raycast"]
 position = Vector2( 10, 0 )

@@ -6,7 +6,7 @@ onready var player : KinematicBody2D = get_tree().get_nodes_in_group("Player")[0
 var motion : float
 
 func _ready():
-	$AnimatedSprite.play("Idle")
+	get_node("AnimatedSprite").play("Idle")
 
 
 func _process(_delta) -> void:
@@ -30,7 +30,7 @@ func motion_ctrl() -> void:
 
 
 func tween_ctrl() -> void:
-	$Tween.interpolate_property(
+	get_node("Tween").interpolate_property(
 		self, # Objeto afectado.
 		"global_position", # Propiedad afectada. 
 		global_position, # Valor inicial.
@@ -39,12 +39,12 @@ func tween_ctrl() -> void:
 		Tween.TRANS_SINE, # Transición inicial.
 		Tween.EASE_OUT # Transición final.
 	)
-	$Tween.start()
+	get_node("Tween").start()
 
 
 func shoot_ctrl():
 	var shoot = Shoot.instance()
-	shoot.global_position = $ShootSpawn.global_position
+	shoot.global_position = get_node("ShootSpawn").global_position
 	
 	if player.get_node("Sprite").flip_h:
 		shoot.scale.x = -1

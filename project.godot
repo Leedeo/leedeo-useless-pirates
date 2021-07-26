@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "BasicEnemy",
+"language": "GDScript",
+"path": "res://Assets/Characters/Enemy/Scipts/Enemy.gd"
+} ]
+_global_script_class_icons={
+"BasicEnemy": ""
+}
+
 [application]
 
 config/name="Leedeo Useless Pirates"
