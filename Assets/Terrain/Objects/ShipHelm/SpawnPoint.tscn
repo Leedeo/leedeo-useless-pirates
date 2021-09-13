@@ -1,0 +1,50 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Assets/Terrain/Objects/ShipHelm/Sprites/Ship Helm Idle 01.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Terrain/Objects/ShipHelm/Sprites/Ship Helm Idle 02.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Terrain/Objects/ShipHelm/Sprites/Ship Helm Idle 03.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Terrain/Objects/ShipHelm/Sprites/Ship Helm Idle 04.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Terrain/Objects/ShipHelm/Sprites/Ship Helm Idle 05.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Terrain/Objects/ShipHelm/Sprites/Ship Helm Idle 06.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Terrain/Objects/ShipHelm/SpawnPoint.gd" type="Script" id=7]
+[ext_resource path="res://Assets/Terrain/Objects/ShipHelm/Sprites/Ship Helm Turn 03.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Terrain/Objects/ShipHelm/Sprites/Ship Helm Turn 04.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Terrain/Objects/ShipHelm/Sprites/Ship Helm Turn 01.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Terrain/Objects/ShipHelm/Sprites/Ship Helm Turn 02.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Terrain/Objects/ShipHelm/Sounds/RetroBlop.ogg" type="AudioStream" id=12]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": false,
+"name": "Turn",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 12.5, 14 )
+
+[node name="SpawnPoint" type="Area2D"]
+script = ExtResource( 7 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "Turn"
+frame = 3
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.5, 2 )
+shape = SubResource( 2 )
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -16.0
+
+[connection signal="body_entered" from="." to="." method="_on_SpawnPoint_body_entered"]
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]

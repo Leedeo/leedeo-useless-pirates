@@ -36,5 +36,9 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 
 func _on_GameOver_finished(): # Cuando termina la música se reinicia la escena.
+	
 	# Usamos call_deferred para hacer una llamada segura y que no arroje advertencias.
 	get_tree().call_deferred("reload_current_scene")
+	
+	# Si el personaje ha muerto ya no es la primera vez que inicia el nivel, así que level_start es igual a false, si esto fuera un juego con más niveles cada vez que terminásemos uno al terminar deberíamos regresar esta variable a true.
+	GLOBAL.level_start = false

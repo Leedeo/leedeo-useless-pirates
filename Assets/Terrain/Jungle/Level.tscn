@@ -18,7 +18,7 @@
 [ext_resource path="res://Assets/Terrain/Objects/Spikes/Spikes.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Assets/Terrain/Objects/Coin/Chest.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Assets/Terrain/Jungle/Platform.tscn" type="PackedScene" id=18]
-[ext_resource path="res://Assets/Terrain/Objects/ShipHelm/ShipHelm.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Assets/Terrain/Objects/ShipHelm/SpawnPoint.tscn" type="PackedScene" id=19]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Move"
@@ -102,7 +102,7 @@ tile_data = PoolIntArray( -6, 1, 0, -5, 1, 4, -4, 1, 4, -3, 1, 1, 65530, 1, 6553
 [node name="Chest" parent="Objects" instance=ExtResource( 17 )]
 position = Vector2( 746, 162 )
 
-[node name="ShipHelm" parent="Objects" instance=ExtResource( 19 )]
+[node name="SpawnPoint" parent="Objects" instance=ExtResource( 19 )]
 position = Vector2( 430, 50 )
 
 [node name="MobilePlatform" type="Position2D" parent="."]
@@ -141,13 +141,13 @@ position = Vector2( 688, 194 )
 position = Vector2( 134, 53 )
 
 [node name="Enemy2" parent="Enemies" instance=ExtResource( 11 )]
-position = Vector2( 430, 53 )
+position = Vector2( 625, 180 )
 
 [node name="Enemy3" parent="Enemies" instance=ExtResource( 9 )]
 position = Vector2( 683, 68 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 200, 181 )
+position = Vector2( 200, 180 )
 
 [node name="Spirit" parent="." instance=ExtResource( 13 )]
 position = Vector2( 178, 168 )
