@@ -5,19 +5,19 @@ onready var active : bool = true
 
 
 func _ready() -> void:
-	get_node("AnimationPlayer").play("Idle")
+	$AnimationPlayer.play("Idle")
 
 
 func _on_Coin_body_entered(body):
 	if body.is_in_group("Player"):
-		get_node("AnimationPlayer").play("Join")
+		$AnimationPlayer.play("Join")
 
 
 func _on_AnimationPlayer_animation_started(anim_name):
 	match anim_name:
 		"Join":
 			if active:
-				get_node("AudioStreamPlayer").play()
+				$AudioStreamPlayer.play()
 				active = false
 			
 				match type:

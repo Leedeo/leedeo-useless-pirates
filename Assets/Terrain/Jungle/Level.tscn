@@ -12,7 +12,7 @@
 [ext_resource path="res://Assets/Terrain/Jungle/Music/VGMA Challenge - July 17th.ogg" type="AudioStream" id=10]
 [ext_resource path="res://Assets/Characters/Enemy/Enemy2.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Assets/Terrain/Objects/Coin/Coin.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Assets/Characters/Player/Spirit.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Assets/Terrain/Objects/PowerUp/PowerUp.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Assets/GUI/GUI.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Assets/Terrain/Jungle/Scripts/Level.gd" type="Script" id=15]
 [ext_resource path="res://Assets/Terrain/Objects/Spikes/Spikes.tscn" type="PackedScene" id=16]
@@ -34,7 +34,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 528, 65 ), Vector2( 588, 65 ), Vector2( 528, 65 ) ]
+"values": [ Vector2( 528, 78 ), Vector2( 588, 78 ), Vector2( 528, 78 ) ]
 }
 
 [node name="Level" type="Node2D" groups=[
@@ -108,7 +108,7 @@ position = Vector2( 430, 50 )
 [node name="MobilePlatform" type="Position2D" parent="."]
 
 [node name="Platform" parent="MobilePlatform" instance=ExtResource( 18 )]
-position = Vector2( 528, 65 )
+position = Vector2( 528, 78 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MobilePlatform"]
 anims/Move = SubResource( 1 )
@@ -135,22 +135,24 @@ position = Vector2( 657, 194 )
 [node name="Spikes02" parent="Terrain" instance=ExtResource( 16 )]
 position = Vector2( 688, 194 )
 
+[node name="PowerUps" type="Position2D" parent="."]
+
+[node name="PowerUp" parent="PowerUps" instance=ExtResource( 13 )]
+position = Vector2( 132, 58 )
+
 [node name="Enemies" type="Position2D" parent="."]
 
 [node name="Enemy1" parent="Enemies" instance=ExtResource( 9 )]
-position = Vector2( 134, 53 )
+position = Vector2( 134, 66 )
 
 [node name="Enemy2" parent="Enemies" instance=ExtResource( 11 )]
-position = Vector2( 625, 180 )
+position = Vector2( 625, 178 )
 
 [node name="Enemy3" parent="Enemies" instance=ExtResource( 9 )]
 position = Vector2( 683, 68 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 200, 180 )
-
-[node name="Spirit" parent="." instance=ExtResource( 13 )]
-position = Vector2( 178, 168 )
 
 [node name="Coins" type="Position2D" parent="."]
 

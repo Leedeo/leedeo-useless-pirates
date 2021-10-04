@@ -1,5 +1,4 @@
 extends KinematicBody2D
-class_name BasicEnemy # Le damos un nombre de clase para que otros enemigos puedan heredar de esta.
 
 onready var camera : Camera2D = get_tree().get_nodes_in_group("Camera")[0] # Referencia a la cámara.
 
@@ -16,21 +15,24 @@ const MIN_SPEED = 32
 const MAX_SPEED = 64
 var speed : int
 
+var dead : bool = false # Añado la variable dead para comprobar el estado, esto no forma parte de ningún tutorial y es para corregir un error de comportamiento en los enemigos.
+
 func _ready() -> void:
-	get_node("AnimationPlayer").play("Run")
+	$AnimationPlayer.play("Run")
 
 
 func _process(_delta) -> void:
-	patrol_ctrl()
-	attack_ctrl()
+	if not dead: # Si dead es igual a false, podrá atacar y moverse, de lo contrario no realizara estas acciones.
+		patrol_ctrl()
+		attack_ctrl()
 	
 	if can_move: # Solo si can_move es igual a true es que el enemigo va a llamar a la función motion_ctrl.
 		motion_ctrl()
 
 
 func patrol_ctrl() -> void:
-	if get_node("Raycast/Patrol").is_colliding():
-		if get_node("Raycast/Patrol").get_collider().is_in_group("Player"):
+	if $Raycast/Patrol.is_colliding():
+		if $Raycast/Patrol.get_collider().is_in_group("Player"):
 			speed = MAX_SPEED
 		else:
 			speed = MIN_SPEED
@@ -39,21 +41,21 @@ func patrol_ctrl() -> void:
 
 
 func attack_ctrl() -> void: # Función creada para controlar el ataque del enemigo.
-	if get_node("Raycast/Attack").is_colliding():
-		if get_node("Raycast/Attack").get_collider().is_in_group("Player"):
+	if $Raycast/Attack.is_colliding():
+		if $Raycast/Attack.get_collider().is_in_group("Player"):
 			can_move = false
-			get_node("AnimationPlayer").play("Attack")
+			$AnimationPlayer.play("Attack")
 
 func motion_ctrl() -> void:
 	if direcion == 1: # Vamos a invertir los sprites en función de la dirección.
-		get_node("Sprite").flip_h = true
+		$Sprite.flip_h = true
 	else:
-		get_node("Sprite").flip_h = false
+		$Sprite.flip_h = false
 	
 	# Si el enemigo colisiona con una pared o el raycast para detectar un precipicio no colisiona, entonces invertirá su dirección.
-	if is_on_wall() or not get_node("Raycast/Ground").is_colliding():
+	if is_on_wall() or not $Raycast/Ground.is_colliding():
 		direcion *= -1
-		get_node("Raycast").scale.x *= -1
+		$Raycast.scale.x *= -1
 	
 	motion.y += GRAVITY
 	motion.x = speed * direcion
@@ -66,9 +68,9 @@ func damage_ctrl(damage) -> void:
 		true:
 			if health > 0:
 				health -= damage # Parámetro para definir la cantidad de vida que se elimina.
-				get_node("AnimationPlayer").play("Hit")
+				$AnimationPlayer.play("Hit")
 			else:
-				get_node("AnimationPlayer").play("Dead Hit")
+				$AnimationPlayer.play("Dead Hit")
 
 
 func _on_AnimationPlayer_animation_started(anim_name): # Señal enviada cuando inicia X animación.
@@ -77,9 +79,10 @@ func _on_AnimationPlayer_animation_started(anim_name): # Señal enviada cuando i
 			can_move = false # Bloqueamos el movimiento
 			camera.screen_shake(0.7, 0.8, 100)
 		"Attack": # El enemigo solo va a quitar vida al player cuando inicia la animación.
-			get_node("Raycast/Attack").get_collider().damage_ctrl(1)
+			$Raycast/Attack.get_collider().damage_ctrl(1)
 		"Dead Hit":
-			get_node("SoundDead").play()
+			$SoundDead.play()
+			dead = true # Cuando inicia la animación de muerte, dead es igual a true.
 
 
 func _on_AnimationPlayer_animation_finished(anim_name): # Señal enviada cuando finaliza X animación.
@@ -87,11 +90,11 @@ func _on_AnimationPlayer_animation_finished(anim_name): # Señal enviada cuando 
 		"Hit":
 			if health > 0:
 				can_move = true # Si la vida es superior a 0, lo volvemos activar al terminar la animación.
-				get_node("AnimationPlayer").play("Run")
+				$AnimationPlayer.play("Run")
 			else:
-				get_node("AnimationPlayer").play("Dead Hit") # De lo contrario reproducimos la animación de muerte.
+				$AnimationPlayer.play("Dead Hit") # De lo contrario reproducimos la animación de muerte.
 		"Attack": # Y cuando termina de atacar, regresamos al enemigo a la normalidad.
 			can_move = true
-			get_node("AnimationPlayer").play("Run")
+			$AnimationPlayer.play("Run")
 		"Dead Hit":
 			queue_free() # Al terminar la animación, se elimina.

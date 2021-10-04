@@ -8,7 +8,7 @@
 [ext_resource path="res://Assets/Characters/Enemy/Sprites/Fierce Tooth/02-Run/Run 06.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Characters/Enemy/Sprites/Fierce Tooth/09-Dead Hit/Dead Hit 04.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Characters/Enemy/Sprites/Fierce Tooth/09-Dead Hit/Dead Hit 01.png" type="Texture" id=8]
-[ext_resource path="res://Assets/Characters/Enemy/Scipts/Enemy1.gd" type="Script" id=9]
+[ext_resource path="res://Assets/Characters/Enemy/Scipts/Enemy.gd" type="Script" id=9]
 [ext_resource path="res://Assets/Characters/Enemy/Sprites/Fierce Tooth/08-Hit/Hit 02.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Characters/Enemy/Sprites/Fierce Tooth/02-Run/Run 05.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Characters/Enemy/Sprites/Fierce Tooth/08-Hit/Hit 04.png" type="Texture" id=12]
@@ -39,7 +39,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=2]
-length = 0.8
+length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
@@ -59,7 +59,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.3, 0.8 ),
+"times": PoolRealArray( 0.3, 0.6 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]

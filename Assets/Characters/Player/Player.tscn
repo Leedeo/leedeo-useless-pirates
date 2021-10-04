@@ -1,37 +1,43 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=69 format=2]
 
-[ext_resource path="res://Assets/Characters/Player/Pirate/03-Jump Sword/Jump Sword 02.png" type="Texture" id=1]
-[ext_resource path="res://Assets/Characters/Player/Pirate/01-Idle Sword/Idle Sword 03.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Characters/Player/Pirate/01-Idle Sword/Idle Sword 01.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Characters/Player/Pirate/01-Idle Sword/Idle Sword 05.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Characters/Player/Pirate/04-Fall Sword/Fall Sword 01.png" type="Texture" id=5]
-[ext_resource path="res://Assets/Characters/Player/Pirate/03-Jump Sword/Jump Sword 03.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/03-Jump/Jump 01.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/01-Idle/Idle 05.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/01-Idle/Idle 04.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/01-Idle/Idle 03.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/04-Fall/Fall 01.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/03-Jump/Jump 02.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Characters/Player/Scripts/Player.gd" type="Script" id=7]
-[ext_resource path="res://Assets/Characters/Player/Pirate/01-Idle Sword/Idle Sword 02.png" type="Texture" id=8]
-[ext_resource path="res://Assets/Characters/Player/Pirate/03-Jump Sword/Jump Sword 01.png" type="Texture" id=9]
-[ext_resource path="res://Assets/Characters/Player/Pirate/01-Idle Sword/Idle Sword 04.png" type="Texture" id=10]
-[ext_resource path="res://Assets/Characters/Player/Pirate/02-Run Sword/Run Sword 01.png" type="Texture" id=11]
-[ext_resource path="res://Assets/Characters/Player/Pirate/02-Run Sword/Run Sword 04.png" type="Texture" id=12]
-[ext_resource path="res://Assets/Characters/Player/Pirate/02-Run Sword/Run Sword 05.png" type="Texture" id=13]
-[ext_resource path="res://Assets/Characters/Player/Pirate/02-Run Sword/Run Sword 06.png" type="Texture" id=14]
-[ext_resource path="res://Assets/Characters/Player/Pirate/02-Run Sword/Run Sword 03.png" type="Texture" id=15]
-[ext_resource path="res://Assets/Characters/Player/Pirate/02-Run Sword/Run Sword 02.png" type="Texture" id=16]
-[ext_resource path="res://Assets/Characters/Player/Pirate/07-Attack 1/Attack 1 01.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/01-Idle/Idle 01.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/03-Jump/Jump 03.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/01-Idle/Idle 02.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/02-Run/Run 03.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/02-Run/Run 04.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/02-Run/Run 05.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/02-Run/Run 06.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/02-Run/Run 01.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/02-Run/Run 02.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Characters/Player/Pirate/Sword/07-Attack 1/Attack 1 01.png" type="Texture" id=17]
 [ext_resource path="res://Assets/Characters/Player/Sounds/Jump.ogg" type="AudioStream" id=18]
-[ext_resource path="res://Assets/Characters/Player/Pirate/07-Attack 1/Attack 1 03.png" type="Texture" id=19]
-[ext_resource path="res://Assets/Characters/Player/Pirate/07-Attack 1/Attack 1 02.png" type="Texture" id=20]
-[ext_resource path="res://Assets/Characters/Player/Pirate/08-Attack 2/Attack 2 03.png" type="Texture" id=21]
-[ext_resource path="res://Assets/Characters/Player/Pirate/08-Attack 2/Attack 2 02.png" type="Texture" id=22]
-[ext_resource path="res://Assets/Characters/Player/Pirate/08-Attack 2/Attack 2 01.png" type="Texture" id=23]
-[ext_resource path="res://Assets/Characters/Player/Pirate/09-Attack 3/Attack 3 03.png" type="Texture" id=24]
-[ext_resource path="res://Assets/Characters/Player/Pirate/09-Attack 3/Attack 3 02.png" type="Texture" id=25]
-[ext_resource path="res://Assets/Characters/Player/Pirate/09-Attack 3/Attack 3 01.png" type="Texture" id=26]
+[ext_resource path="res://Assets/Characters/Player/Pirate/Sword/07-Attack 1/Attack 1 03.png" type="Texture" id=19]
+[ext_resource path="res://Assets/Characters/Player/Pirate/Sword/07-Attack 1/Attack 1 02.png" type="Texture" id=20]
+[ext_resource path="res://Assets/Characters/Player/Pirate/Sword/08-Attack 2/Attack 2 03.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Characters/Player/Pirate/Sword/08-Attack 2/Attack 2 02.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Characters/Player/Pirate/Sword/08-Attack 2/Attack 2 01.png" type="Texture" id=23]
+[ext_resource path="res://Assets/Characters/Player/Pirate/Sword/09-Attack 3/Attack 3 03.png" type="Texture" id=24]
+[ext_resource path="res://Assets/Characters/Player/Pirate/Sword/09-Attack 3/Attack 3 02.png" type="Texture" id=25]
+[ext_resource path="res://Assets/Characters/Player/Pirate/Sword/09-Attack 3/Attack 3 01.png" type="Texture" id=26]
 [ext_resource path="res://Assets/Characters/Player/Sounds/Sword.ogg" type="AudioStream" id=27]
 [ext_resource path="res://Assets/Characters/Player/Sounds/Hit.ogg" type="AudioStream" id=28]
+[ext_resource path="res://Assets/Characters/Player/Pirate/Shot/Shot 01.png" type="Texture" id=30]
+[ext_resource path="res://Assets/Characters/Player/Pirate/Shot/Shot 03.png" type="Texture" id=31]
+[ext_resource path="res://Assets/Characters/Player/Pirate/Shot/Shot 05.png" type="Texture" id=32]
+[ext_resource path="res://Assets/Characters/Player/Pirate/Shot/Shot 02.png" type="Texture" id=33]
+[ext_resource path="res://Assets/Characters/Player/Pirate/Shot/Shot 04.png" type="Texture" id=34]
+[ext_resource path="res://Assets/Characters/Player/Pirate/Shot/Shot 06.png" type="Texture" id=35]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Attack-1"
-length = 0.3
+length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
@@ -47,7 +53,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=2]
 resource_name = "Attack-2"
-length = 0.3
+length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
@@ -63,7 +69,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "Attack-3"
-length = 0.3
+length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
@@ -122,11 +128,11 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 3 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 10 ), ExtResource( 4 ) ]
+"values": [ ExtResource( 8 ), ExtResource( 10 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ) ]
 }
 
 [sub_resource type="Animation" id=7]
-length = 0.3
+length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
@@ -137,7 +143,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 9 ), ExtResource( 1 ), ExtResource( 6 ) ]
+"values": [ ExtResource( 1 ), ExtResource( 6 ), ExtResource( 9 ) ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -154,33 +160,48 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.075, 0.15, 0.225, 0.3, 0.375 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 11 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ]
+"values": [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=9]
-animation = "Attack-1"
+[sub_resource type="Animation" id=9]
+resource_name = "Shot"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 30 ), ExtResource( 33 ), ExtResource( 31 ), ExtResource( 34 ), ExtResource( 32 ), ExtResource( 35 ) ]
+}
 
 [sub_resource type="AnimationNodeAnimation" id=10]
-animation = "Attack-2"
+animation = "Attack-1"
 
 [sub_resource type="AnimationNodeAnimation" id=11]
-animation = "Attack-3"
+animation = "Attack-2"
 
 [sub_resource type="AnimationNodeAnimation" id=12]
-animation = "Fall"
+animation = "Attack-3"
 
 [sub_resource type="AnimationNodeAnimation" id=13]
-animation = "Idle"
+animation = "Fall"
 
 [sub_resource type="AnimationNodeAnimation" id=14]
-animation = "Jump"
+animation = "Idle"
 
 [sub_resource type="AnimationNodeAnimation" id=15]
+animation = "Jump"
+
+[sub_resource type="AnimationNodeAnimation" id=16]
 animation = "Run"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=16]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "Shot"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=18]
 
@@ -193,39 +214,50 @@ animation = "Run"
 [sub_resource type="AnimationNodeStateMachineTransition" id=22]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=23]
-switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=24]
-switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=25]
 switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=26]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=27]
+switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachine" id=28]
-states/Attack-1/node = SubResource( 9 )
+[sub_resource type="AnimationNodeStateMachineTransition" id=28]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=29]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=30]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=31]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id=32]
+states/Attack-1/node = SubResource( 10 )
 states/Attack-1/position = Vector2( 236.354, 239 )
-states/Attack-2/node = SubResource( 10 )
+states/Attack-2/node = SubResource( 11 )
 states/Attack-2/position = Vector2( 470, 239 )
-states/Attack-3/node = SubResource( 11 )
+states/Attack-3/node = SubResource( 12 )
 states/Attack-3/position = Vector2( 716, 239 )
-states/Fall/node = SubResource( 12 )
+states/Fall/node = SubResource( 13 )
 states/Fall/position = Vector2( 716, -43 )
-states/Idle/node = SubResource( 13 )
+states/Idle/node = SubResource( 14 )
 states/Idle/position = Vector2( 470, 101 )
-states/Jump/node = SubResource( 14 )
+states/Jump/node = SubResource( 15 )
 states/Jump/position = Vector2( 470, -43 )
-states/Run/node = SubResource( 15 )
+states/Run/node = SubResource( 16 )
 states/Run/position = Vector2( 716, 101 )
-transitions = [ "Idle", "Run", SubResource( 16 ), "Run", "Idle", SubResource( 17 ), "Idle", "Jump", SubResource( 18 ), "Jump", "Fall", SubResource( 19 ), "Fall", "Idle", SubResource( 20 ), "Idle", "Fall", SubResource( 21 ), "Idle", "Attack-1", SubResource( 22 ), "Attack-2", "Idle", SubResource( 23 ), "Attack-3", "Idle", SubResource( 24 ), "Attack-1", "Idle", SubResource( 25 ), "Attack-1", "Attack-2", SubResource( 26 ), "Attack-2", "Attack-3", SubResource( 27 ) ]
-graph_offset = Vector2( -239.646, 65 )
+states/Shot/node = SubResource( 17 )
+states/Shot/position = Vector2( 236.354, 101 )
+transitions = [ "Idle", "Run", SubResource( 18 ), "Run", "Idle", SubResource( 19 ), "Idle", "Jump", SubResource( 20 ), "Jump", "Fall", SubResource( 21 ), "Fall", "Idle", SubResource( 22 ), "Idle", "Fall", SubResource( 23 ), "Idle", "Attack-1", SubResource( 24 ), "Attack-2", "Idle", SubResource( 25 ), "Attack-3", "Idle", SubResource( 26 ), "Attack-1", "Idle", SubResource( 27 ), "Attack-1", "Attack-2", SubResource( 28 ), "Attack-2", "Attack-3", SubResource( 29 ), "Idle", "Shot", SubResource( 30 ), "Shot", "Idle", SubResource( 31 ) ]
+graph_offset = Vector2( -238.646, 67 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=29]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=33]
 
-[sub_resource type="CapsuleShape2D" id=30]
+[sub_resource type="CapsuleShape2D" id=34]
 radius = 8.0
 height = 4.0
 
@@ -250,7 +282,7 @@ scale_amount_random = 0.8
 color = Color( 1, 1, 1, 0.705882 )
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 3 )
+texture = ExtResource( 30 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack-1 = SubResource( 1 )
@@ -261,15 +293,17 @@ anims/Hit = SubResource( 5 )
 anims/Idle = SubResource( 6 )
 anims/Jump = SubResource( 7 )
 anims/Run = SubResource( 8 )
+anims/Shot = SubResource( 9 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 28 )
+tree_root = SubResource( 32 )
 anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource( 29 )
+active = true
+parameters/playback = SubResource( 33 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 1 )
-shape = SubResource( 30 )
+shape = SubResource( 34 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
@@ -289,17 +323,23 @@ volume_db = -16.0
 stream = ExtResource( 28 )
 volume_db = -12.0
 
-[node name="Raycast" type="Position2D" parent="."]
+[node name="View" type="Position2D" parent="."]
 
-[node name="Hit" type="RayCast2D" parent="Raycast"]
+[node name="Hit" type="RayCast2D" parent="View"]
 position = Vector2( 0, 4 )
 enabled = true
 cast_to = Vector2( 32, 0 )
 
-[node name="Wall" type="RayCast2D" parent="Raycast"]
+[node name="Wall" type="RayCast2D" parent="View"]
 position = Vector2( 0, -8 )
 enabled = true
-cast_to = Vector2( 12, 0 )
+cast_to = Vector2( 16, 0 )
+
+[node name="ShotSpawn" type="Position2D" parent="View"]
+position = Vector2( 20, 4 )
+__meta__ = {
+"_gizmo_extents_": 5.0
+}
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

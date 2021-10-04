@@ -4,8 +4,8 @@ var direction : int
 onready var can_move : bool = true
 
 func _ready() -> void:
-	get_node("AnimationPlayer").play("Shoot")
-	get_node("Sounds/Shoot").play()
+	$AnimationPlayer.play("Shoot")
+	$Sounds/Shoot.play()
 
 
 func _process(delta) -> void:
@@ -21,12 +21,12 @@ func _on_VisibilityNotifier2D_screen_exited():
 func _on_Shoot_body_entered(body): # El área envía la señal body_entered.
 	if body.is_in_group("Enemy"): # Si el cuerpo pertenece al grupo Enemy.
 		body.damage_ctrl(1) # Se llama a la función damage_ctrl de los enemigos.
-		get_node("AnimationPlayer").play("Explosion")
-		get_node("Sounds/Explosion").play() # Añadimos el sonido de explosión.
+		$AnimationPlayer.play("Explosion")
+		$Sounds/Explosion.play() # Añadimos el sonido de explosión.
 		
 	elif body.is_in_group("Terrain"): # Si el cuerpo pertenece al grupo Wall.
-		get_node("AnimationPlayer").play("Explosion")
-		get_node("Sounds/Explosion").play() # Añadimos el sonido de explosión.
+		$AnimationPlayer.play("Explosion")
+		$Sounds/Explosion.play() # Añadimos el sonido de explosión.
 
 
 func _on_AnimationPlayer_animation_started(anim_name):

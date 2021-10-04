@@ -24,7 +24,7 @@ func screen_shake(shake_lenght : float, shake_power : float, shake_priority : in
 	var current_shake_priority : int = 0
 	
 	if shake_priority > current_shake_priority:
-		get_node("Tween").interpolate_method(
+		$Tween.interpolate_method(
 			self, # Objeto afectado.
 			"shake_camera", # Método o función afectada. 
 			shake_power, # Valor inicial.
@@ -33,4 +33,4 @@ func screen_shake(shake_lenght : float, shake_power : float, shake_priority : in
 			Tween.TRANS_SINE, # Transición inicial.
 			Tween.EASE_OUT # Transición final.
 		)
-		get_node("Tween").start()
+		$Tween.start()

@@ -1,7 +1,7 @@
 [gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Assets/Characters/Enemy/Sounds/DeadHit.ogg" type="AudioStream" id=1]
-[ext_resource path="res://Assets/Characters/Enemy/Scipts/Enemy2.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Characters/Enemy/Scipts/Enemy.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Characters/Enemy/Sprites/Pink Star/07-Attack/Attack 02.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Characters/Enemy/Sprites/Pink Star/07-Attack/Attack 01.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Characters/Enemy/Sprites/Pink Star/07-Attack/Attack 03.png" type="Texture" id=5]
@@ -38,7 +38,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=2]
-length = 0.8
+length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
@@ -58,7 +58,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.3, 0.8 ),
+"times": PoolRealArray( 0.3, 0.6 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -153,7 +153,7 @@ height = 3.0
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 14 )
+texture = ExtResource( 13 )
 flip_h = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

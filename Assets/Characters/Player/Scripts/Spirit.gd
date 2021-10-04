@@ -1,12 +1,14 @@
 extends Area2D
 
-export (PackedScene) var Shoot
+var Shot : PackedScene = load("res://Assets/Characters/Player/Shot.tscn")
 
 onready var player : KinematicBody2D = get_tree().get_nodes_in_group("Player")[0] # Referencias al nodo player.
 var motion : float
 
 func _ready():
-	get_node("AnimatedSprite").play("Idle")
+	GLOBAL.powerful_shot = true # Cuando entra en pantalla powerful_shot es igual a true.
+	global_position = Vector2(player.global_position.x, player.global_position.y - 8)
+	$AnimatedSprite.play("Idle")
 
 
 func _process(_delta) -> void:
@@ -16,8 +18,8 @@ func _process(_delta) -> void:
 		tween_ctrl()
 		
 		# Lo hago así en lugar de hacerlo en la función Input por economizar código.
-		if Input.is_action_just_pressed("shoot"):
-			shoot_ctrl()
+		if Input.is_action_just_pressed("shot"):
+			shot_ctrl()
 
 
 func motion_ctrl() -> void:
@@ -30,7 +32,7 @@ func motion_ctrl() -> void:
 
 
 func tween_ctrl() -> void:
-	get_node("Tween").interpolate_property(
+	$Tween.interpolate_property(
 		self, # Objeto afectado.
 		"global_position", # Propiedad afectada. 
 		global_position, # Valor inicial.
@@ -39,18 +41,22 @@ func tween_ctrl() -> void:
 		Tween.TRANS_SINE, # Transición inicial.
 		Tween.EASE_OUT # Transición final.
 	)
-	get_node("Tween").start()
+	$Tween.start()
 
 
-func shoot_ctrl():
-	var shoot = Shoot.instance()
-	shoot.global_position = get_node("ShootSpawn").global_position
+func shot_ctrl():
+	var shot = Shot.instance()
+	shot.global_position = $ShotSpawn.global_position
 	
 	if player.get_node("Sprite").flip_h:
-		shoot.scale.x = -1
-		shoot.direction = -224
+		shot.scale.x = -1
+		shot.direction = -224
 	else:
-		shoot.scale.x = 1
-		shoot.direction = 224
+		shot.scale.x = 1
+		shot.direction = 224
 	
-	get_tree().call_group("Level", "add_child", shoot)
+	get_tree().call_group("Level", "add_child", shot)
+
+
+func _on_Spirit_tree_exited():
+	GLOBAL.powerful_shot = false
