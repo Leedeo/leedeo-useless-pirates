@@ -261,9 +261,7 @@ graph_offset = Vector2( -238.646, 67 )
 radius = 8.0
 height = 4.0
 
-[node name="Player" type="KinematicBody2D" groups=[
-"Player",
-]]
+[node name="Player" type="KinematicBody2D" groups=["Player"]]
 script = ExtResource( 7 )
 
 [node name="Particles" type="CPUParticles2D" parent="."]
@@ -305,8 +303,14 @@ parameters/playback = SubResource( 33 )
 position = Vector2( 0, 1 )
 shape = SubResource( 34 )
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timers" type="Node" parent="."]
+
+[node name="Collision" type="Timer" parent="Timers"]
 wait_time = 0.1
+one_shot = true
+
+[node name="CoyoteTime" type="Timer" parent="Timers"]
+wait_time = 0.05
 one_shot = true
 
 [node name="Sounds" type="Node" parent="."]
@@ -342,4 +346,4 @@ __meta__ = {
 }
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timers/Collision" to="." method="_on_Collision_timeout"]

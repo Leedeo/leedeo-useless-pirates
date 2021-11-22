@@ -37,9 +37,7 @@ tracks/0/keys = {
 "values": [ Vector2( 528, 78 ), Vector2( 588, 78 ), Vector2( 528, 78 ) ]
 }
 
-[node name="Level" type="Node2D" groups=[
-"Level",
-]]
+[node name="Level" type="Node2D" groups=["Level"]]
 script = ExtResource( 15 )
 
 [node name="BGMusic" type="AudioStreamPlayer" parent="."]
@@ -113,17 +111,13 @@ position = Vector2( 528, 78 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MobilePlatform"]
 anims/Move = SubResource( 1 )
 
-[node name="Platforms" type="TileMap" parent="." groups=[
-"Platform",
-]]
+[node name="Platforms" type="TileMap" parent="." groups=["Platform"]]
 tile_set = ExtResource( 7 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 262166, 3, 3, 327684, 3, 3, 327691, 3, 3, 327720, 3, 0, 327721, 3, 1, 327722, 3, 1, 327723, 3, 1, 327724, 3, 2 )
 
-[node name="Terrain" type="TileMap" parent="." groups=[
-"Terrain",
-]]
+[node name="Terrain" type="TileMap" parent="." groups=["Terrain"]]
 tile_set = ExtResource( 7 )
 cell_size = Vector2( 16, 16 )
 format = 1

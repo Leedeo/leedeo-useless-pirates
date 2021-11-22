@@ -8,8 +8,10 @@ const GRAVITY = 16
 const JUMP_HEIGHT = 368 # Esta constante define la fuerza del salto.
 const BOUNCING_JUMP = 128 # Esta constante es para definir la fuerza de rebote en la pared.
 
+# Al añadir Coyote Time, ya no es necesario la variable can_move, que solo estábamos usando en este caso para la función de rebote.
 var motion : Vector2 = Vector2.ZERO
-var can_move : bool # Esta variable es para comprobar si el personaje puede moverse.
+var jump : int # Para el doble salto vamos a crear una variable llamada can_jump del tipo int.
+var max_jump : int = 2 # Y definimos una cantidad de veces que podemos saltar.
 
 var immunity : bool = false # Esto es para crear el estado de inmunidad en el player.
 var health : int = 5 # Con esta variable contabilizamos la salud del player.
@@ -30,19 +32,16 @@ func _process(_delta):
 
 func motion_ctrl() -> void: # Al separar los comportamientos en distintas funciones, la función de movimiento ha quedado mucho más limpia y comprensible a simple vista.
 	motion.y += GRAVITY
+	motion.x =  GLOBAL.get_axis().x * SPEED
 	
-	match can_move: # Solo se podrá mover si can_move es igual a true.
-		true: 
-			motion.x =  GLOBAL.get_axis().x * SPEED
-			
-			if GLOBAL.get_axis().x == 0:
-				playback.travel("Idle")
-			elif GLOBAL.get_axis().x == 1:
-				playback.travel("Run")
-				$Sprite.flip_h = false
-			elif GLOBAL.get_axis().x == -1:
-				playback.travel("Run")
-				$Sprite.flip_h = true
+	if GLOBAL.get_axis().x == 0:
+		playback.travel("Idle")
+	elif GLOBAL.get_axis().x == 1:
+		playback.travel("Run")
+		$Sprite.flip_h = false
+	elif GLOBAL.get_axis().x == -1:
+		playback.travel("Run")
+		$Sprite.flip_h = true
 		
 	match playback.get_current_node():
 		"Idle":
@@ -66,45 +65,50 @@ func motion_ctrl() -> void: # Al separar los comportamientos en distintas funcio
 			# Si el objeto colisionado pertenece al grupo Platform y presionamos la tecla de dirección inferior.
 			if collision.collider.is_in_group("Platform") and Input.is_action_just_pressed("ui_down"): 
 				$Collision.disabled = true # Desactivamos el collider del player
-				$Timer.start() # Y activamos el timer.
+				$Timers/Collision.start() # Y activamos el timer.
 			
 	motion = move_and_slide(motion, FLOOR)
 
 
 func jump_ctrl() -> void: # Separo la función de salto para mantener el orden y facilitar la lectura del código.
-	match is_on_floor():
-		true: # Aquí comprobamos si el personaje se encuentra tocando el suelo.
-			can_move = true # En caso afirmativo, can_move es igual a true.
-		
-			if Input.is_action_just_pressed("jump"):
-				$Sounds/Jump.play()
-				motion.y -= JUMP_HEIGHT
-			
-		false: # Aquí comprobamos si el personaje no se encuentra tocando el suelo.
+	match is_on_floor(): # Comprobamos si el personaje se encuentra tocando el suelo.
+		true:
+			jump = max_jump # En caso afirmativo, restablece jump para poder saltar nuevamente.
+		false:
 			$Particles.emitting = false # En caso negativo, se desactiva la emisión de partículas.
-		
+			
 			if motion.y < 0:
 				playback.travel("Jump")
 			else:
 				playback.travel("Fall")
-			
-			if $View/Wall.is_colliding(): # Tenemos que comprobar primero si ha colisionado, de lo contrario arrojaría un error.
 				
-				var body = $View/Wall.get_collider() # Creo esta variable para guardar las colisiones.
+	# Si la variable Jump es superior a cero y no se encuentra cayendo, podemos saltar.
+	if jump > 0 and not playback.get_current_node() == "Fall":
+		if Input.is_action_just_pressed("jump"):
+			jump_event()
 			
-				if body.is_in_group("Terrain"): # Comprobamos si el personaje se encuentra tocando la pared.
-					can_move = false # Y en caso afirmativo, can_move es igual a false. Movemos esta comprobación aquí para que solo bloquee el movimiento si colisiona con una pared.
-					
-					if Input.is_action_just_pressed("jump"):
-						$Sounds/Jump.play()
-						motion.y -= JUMP_HEIGHT / 1.3 # Sí, lo he ajustado y no lo he mencionado en video ¿como ves?
-						
-						if $Sprite.flip_h:
-							motion.x += BOUNCING_JUMP
-							$Sprite.flip_h = false
-						else:
-							motion.x -= BOUNCING_JUMP
-							$Sprite.flip_h = true
+	else: # En caso contrario.
+		if $View/Wall.is_colliding(): # Comprobamos si ha colisionado, de lo contrario arrojaría un error.
+			var body = $View/Wall.get_collider() # Creo esta variable para guardar las colisiones.
+			
+			if body.is_in_group("Terrain"): # Comprobamos si el personaje se encuentra tocando la pared.
+				$Timers/CoyoteTime.start()
+		
+		# Si el tiempo restante es superior a cero y presionamos la tecla de salto, podemos rebotar en la pared.
+		if jump > 0 and $Timers/CoyoteTime.time_left > 0:
+			if Input.is_action_just_pressed("jump"):
+				jump_event()
+
+
+func jump_event(): # Creamos esta función para reciclar código y facilitar la lectura del script.
+	jump -= 1 # Cuando realice un salto restamos 1 a la variable jump.
+	$Sounds/Jump.play()
+	
+	match playback.get_current_node():
+		"Idle", "Run":
+			motion.y -= JUMP_HEIGHT
+		"Jump":
+			motion.y -= JUMP_HEIGHT / 1.4
 
 
 func attack_ctrl() -> void: # Creamos una función para controlar el ataque del personaje.
@@ -168,5 +172,6 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			immunity = false # Y cuando termina deja de ser inmune.
 
 
-func _on_Timer_timeout():
-	$Collision.disabled = false # Cuando el tiempo termina, se activa nuevamente el collider, es una forma de hacer esto.
+func _on_Collision_timeout():
+	# Cuando el tiempo termina, se activa nuevamente el collider, es una forma de hacer esto.
+	$Collision.disabled = false
