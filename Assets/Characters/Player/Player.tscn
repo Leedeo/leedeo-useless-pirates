@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/03-Jump/Jump 01.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Characters/Player/Pirate/With Sword/01-Idle/Idle 05.png" type="Texture" id=2]
@@ -28,12 +28,22 @@
 [ext_resource path="res://Assets/Characters/Player/Pirate/Sword/09-Attack 3/Attack 3 01.png" type="Texture" id=26]
 [ext_resource path="res://Assets/Characters/Player/Sounds/Sword.ogg" type="AudioStream" id=27]
 [ext_resource path="res://Assets/Characters/Player/Sounds/Hit.ogg" type="AudioStream" id=28]
+[ext_resource path="res://Assets/Characters/Player/Sounds/Dash.ogg" type="AudioStream" id=29]
 [ext_resource path="res://Assets/Characters/Player/Pirate/Shot/Shot 01.png" type="Texture" id=30]
 [ext_resource path="res://Assets/Characters/Player/Pirate/Shot/Shot 03.png" type="Texture" id=31]
 [ext_resource path="res://Assets/Characters/Player/Pirate/Shot/Shot 05.png" type="Texture" id=32]
 [ext_resource path="res://Assets/Characters/Player/Pirate/Shot/Shot 02.png" type="Texture" id=33]
 [ext_resource path="res://Assets/Characters/Player/Pirate/Shot/Shot 04.png" type="Texture" id=34]
 [ext_resource path="res://Assets/Characters/Player/Pirate/Shot/Shot 06.png" type="Texture" id=35]
+
+[sub_resource type="ParticlesMaterial" id=35]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 1, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color = Color( 0.627451, 0.627451, 0.627451, 0.470588 )
 
 [sub_resource type="Animation" id=1]
 resource_name = "Attack-1"
@@ -263,8 +273,11 @@ height = 4.0
 
 [node name="Player" type="KinematicBody2D" groups=["Player"]]
 script = ExtResource( 7 )
+can_dash = true
 
-[node name="Particles" type="CPUParticles2D" parent="."]
+[node name="Particles" type="Position2D" parent="."]
+
+[node name="Dust" type="CPUParticles2D" parent="Particles"]
 position = Vector2( 0, 10 )
 emitting = false
 amount = 3
@@ -278,6 +291,14 @@ linear_accel = 40.0
 scale_amount = 4.0
 scale_amount_random = 0.8
 color = Color( 1, 1, 1, 0.705882 )
+
+[node name="Dash" type="Particles2D" parent="Particles"]
+emitting = false
+amount = 16
+lifetime = 0.35
+local_coords = false
+process_material = SubResource( 35 )
+texture = ExtResource( 11 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 30 )
@@ -313,6 +334,13 @@ one_shot = true
 wait_time = 0.05
 one_shot = true
 
+[node name="Dash" type="Timer" parent="Timers"]
+wait_time = 0.2
+one_shot = true
+
+[node name="CanDash" type="Timer" parent="Timers"]
+one_shot = true
+
 [node name="Sounds" type="Node" parent="."]
 
 [node name="Jump" type="AudioStreamPlayer" parent="Sounds"]
@@ -326,6 +354,10 @@ volume_db = -16.0
 [node name="Hit" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 28 )
 volume_db = -12.0
+
+[node name="Dash" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 29 )
+volume_db = -20.0
 
 [node name="View" type="Position2D" parent="."]
 
@@ -347,3 +379,5 @@ __meta__ = {
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="Timers/Collision" to="." method="_on_Collision_timeout"]
+[connection signal="timeout" from="Timers/Dash" to="." method="_on_Dash_timeout"]
+[connection signal="timeout" from="Timers/CanDash" to="." method="_on_CanDash_timeout"]

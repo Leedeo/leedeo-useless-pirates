@@ -4,12 +4,14 @@ var Shot : PackedScene = load("res://Assets/Characters/Player/Shot.tscn")
 
 const SPEED = 128
 const FLOOR = Vector2(0, -1)
-const GRAVITY = 16
+var GRAVITY = 16
 const JUMP_HEIGHT = 368 # Esta constante define la fuerza del salto.
 const BOUNCING_JUMP = 128 # Esta constante es para definir la fuerza de rebote en la pared.
 
 # Al añadir Coyote Time, ya no es necesario la variable can_move, que solo estábamos usando en este caso para la función de rebote.
 var motion : Vector2 = Vector2.ZERO
+export(bool) var can_dash : bool # Esta variable es para comprobar si puede realizar un dash.
+var dash : bool # Esta variable es para comprobar si se encuentra realizando un dash.
 var jump : int # Para el doble salto vamos a crear una variable llamada can_jump del tipo int.
 var max_jump : int = 2 # Y definimos una cantidad de veces que podemos saltar.
 
@@ -27,13 +29,23 @@ func _ready():
 func _process(_delta):
 	motion_ctrl()
 	jump_ctrl()
+	dash_ctrl()
 	attack_ctrl()
 
 
 func motion_ctrl() -> void: # Al separar los comportamientos en distintas funciones, la función de movimiento ha quedado mucho más limpia y comprensible a simple vista.
-	motion.y += GRAVITY
-	motion.x =  GLOBAL.get_axis().x * SPEED
-	
+	match dash:
+		true: # Si el dash se encuentra activo.
+			motion.x =  GLOBAL.get_axis().x * SPEED * 3
+			$Particles/Dash.emitting = true
+			
+			if playback.get_current_node() == "Jump": # La gravedad solo le afecta si está subiendo.
+				motion.y += GRAVITY
+		false: # Si el dash NO se encuentra activo.
+			motion.y += GRAVITY # La gravedad le afecta normalmente.
+			motion.x =  GLOBAL.get_axis().x * SPEED
+			$Particles/Dash.emitting = false
+			
 	if GLOBAL.get_axis().x == 0:
 		playback.travel("Idle")
 	elif GLOBAL.get_axis().x == 1:
@@ -46,9 +58,9 @@ func motion_ctrl() -> void: # Al separar los comportamientos en distintas funcio
 	match playback.get_current_node():
 		"Idle":
 			motion.x =  0
-			$Particles.emitting = false
+			$Particles/Dust.emitting = false
 		"Run":
-			$Particles.emitting = true
+			$Particles/Dust.emitting = true
 				
 	match $Sprite.flip_h: # Usando como referencia la propiedad flip_h del nodo Sprite vamos a saber en qué posición debe estar viendo el jugador.
 		true:
@@ -75,7 +87,7 @@ func jump_ctrl() -> void: # Separo la función de salto para mantener el orden y
 		true:
 			jump = max_jump # En caso afirmativo, restablece jump para poder saltar nuevamente.
 		false:
-			$Particles.emitting = false # En caso negativo, se desactiva la emisión de partículas.
+			$Particles/Dust.emitting = false # En caso negativo, se desactiva la emisión de partículas.
 			
 			if motion.y < 0:
 				playback.travel("Jump")
@@ -109,6 +121,14 @@ func jump_event(): # Creamos esta función para reciclar código y facilitar la 
 			motion.y -= JUMP_HEIGHT
 		"Jump":
 			motion.y -= JUMP_HEIGHT / 1.4
+
+
+func dash_ctrl():
+	if can_dash and Input.is_action_just_pressed("dash"):
+		dash = true
+		can_dash = false
+		$Sounds/Dash.play()
+		$Timers/Dash.start()
 
 
 func attack_ctrl() -> void: # Creamos una función para controlar el ataque del personaje.
@@ -175,3 +195,12 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func _on_Collision_timeout():
 	# Cuando el tiempo termina, se activa nuevamente el collider, es una forma de hacer esto.
 	$Collision.disabled = false
+
+
+func _on_Dash_timeout():
+	dash = false
+	$Timers/CanDash.start()
+
+
+func _on_CanDash_timeout():
+	can_dash = true
